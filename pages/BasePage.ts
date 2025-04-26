@@ -121,7 +121,7 @@ export class BasePage {
    */
   async hasText(selector: string, expectedText: string, exact = false): Promise<boolean> {
     return this.getText(selector)
-      .then(text => !!text && (exact ? text === expectedText : text.includes(expectedText)))
+      .then((text) => !!text && (exact ? text === expectedText : text.includes(expectedText)))
       .catch(() => false);
   }
 }

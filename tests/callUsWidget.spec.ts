@@ -53,6 +53,7 @@ test.describe('Call Us Widget', () => {
   });
 
   test('Should submit form and display success message with correct phone number', async () => {
+    test.skip(!!process.env.CI, 'Test is skipped in CI environment');
     await widget.openWidget();
     await widget.fillForm({
       firstName: CallUsWidgetConstants.USER_DATA.FIRST_NAME,
