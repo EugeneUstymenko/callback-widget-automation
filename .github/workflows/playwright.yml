@@ -20,8 +20,6 @@ jobs:
   test:
     name: Run Playwright tests
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.52.0-jammy
 
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +39,14 @@ jobs:
       - name: Run ESLint
         run: npm run eslint
 
+      - name: Install Playwright browsers
+        run: |
+          sudo sed -i 's/azure.archive.ubuntu.com/archive.ubuntu.com/g' /etc/apt/sources.list
+          npx playwright install --with-deps
+
       - name: Run Playwright tests
+        env:
+          CI: "true"
         run: |
           if [ "${{ github.event.inputs.browser }}" = "all" ]; then
             npx playwright test
